@@ -308,5 +308,4 @@ public class InitialRequestManager extends RequestManager
         // TODO Auto-generated method stub
         
     }
-
 }

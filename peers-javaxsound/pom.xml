@@ -7,15 +7,39 @@
   <version>0.5.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+<!--
+	<parent>
+  <groupId>net.sourceforge.peers</groupId>
+  <artifactId>peers</artifactId>
+  <version>0.5.1-SNAPSHOT</version>
+	</parent>
+-->
+
+	
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+<!--
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>peers</artifactId>
+      <version>${project.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+-->
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>peers-lib</artifactId>
-      <version>${project.version}</version>
+  		<version>0.5.2-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

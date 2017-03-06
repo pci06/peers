@@ -19,12 +19,6 @@
 
 package net.sourceforge.peers.sip.core.useragent.handlers;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Hashtable;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import net.sourceforge.peers.Config;
 import net.sourceforge.peers.Logger;
 import net.sourceforge.peers.sip.RFC3261;
@@ -32,21 +26,17 @@ import net.sourceforge.peers.sip.core.useragent.InitialRequestManager;
 import net.sourceforge.peers.sip.core.useragent.RequestManager;
 import net.sourceforge.peers.sip.core.useragent.SipListener;
 import net.sourceforge.peers.sip.core.useragent.UserAgent;
-import net.sourceforge.peers.sip.syntaxencoding.NameAddress;
-import net.sourceforge.peers.sip.syntaxencoding.SipHeaderFieldName;
-import net.sourceforge.peers.sip.syntaxencoding.SipHeaderFieldValue;
-import net.sourceforge.peers.sip.syntaxencoding.SipHeaderParamName;
-import net.sourceforge.peers.sip.syntaxencoding.SipHeaders;
-import net.sourceforge.peers.sip.syntaxencoding.SipURI;
-import net.sourceforge.peers.sip.syntaxencoding.SipUriSyntaxException;
-import net.sourceforge.peers.sip.transaction.ClientTransaction;
-import net.sourceforge.peers.sip.transaction.ClientTransactionUser;
-import net.sourceforge.peers.sip.transaction.NonInviteClientTransaction;
-import net.sourceforge.peers.sip.transaction.Transaction;
-import net.sourceforge.peers.sip.transaction.TransactionManager;
+import net.sourceforge.peers.sip.syntaxencoding.*;
+import net.sourceforge.peers.sip.transaction.*;
 import net.sourceforge.peers.sip.transport.SipRequest;
 import net.sourceforge.peers.sip.transport.SipResponse;
 import net.sourceforge.peers.sip.transport.TransportManager;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Hashtable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RegisterHandler extends MethodHandler
         implements ClientTransactionUser {
@@ -55,7 +45,7 @@ public class RegisterHandler extends MethodHandler
 
     private InitialRequestManager initialRequestManager;
 
-    private Timer timer;
+    private Timer timer=null;
 
     private String requestUriStr;
     private String profileUriStr;
@@ -126,6 +116,7 @@ public class RegisterHandler extends MethodHandler
     }
 
     public void unregister() {
+
         timer.cancel();
         unregisterInvoked = true;
         challenged = false;
@@ -249,6 +240,7 @@ public class RegisterHandler extends MethodHandler
             	if (delay == -1) {
             		delay = Integer.parseInt(expires) - REFRESH_MARGIN;
             	}
+            	  this.stopTimer();
                 timer = new Timer(getClass().getSimpleName()
                         + " refresh timer");
                 timer.schedule(new RefreshTimerTask(), delay * 1000);
@@ -293,6 +285,14 @@ public class RegisterHandler extends MethodHandler
 
     public void setInitialRequestManager(InitialRequestManager initialRequestManager) {
         this.initialRequestManager = initialRequestManager;
+    }
+
+    public void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+            timer=null;
+        }
     }
 
 }

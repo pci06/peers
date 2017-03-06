@@ -7,9 +7,29 @@
   <version>0.5.1-SNAPSHOT</version>
   <name>peers-demo</name>
   <url>http://maven.apache.org</url>
+
+	<parent>
+  <groupId>net.sourceforge.peers</groupId>
+  <artifactId>peers</artifactId>
+  <version>0.5.1-SNAPSHOT</version>
+	</parent>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>peers</artifactId>
+      <version>${project.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -20,7 +40,6 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>peers-lib</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>

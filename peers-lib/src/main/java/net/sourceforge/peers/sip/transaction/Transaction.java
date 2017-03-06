@@ -19,15 +19,15 @@
 
 package net.sourceforge.peers.sip.transaction;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-
 import net.sourceforge.peers.Logger;
 import net.sourceforge.peers.sip.transport.SipRequest;
 import net.sourceforge.peers.sip.transport.SipResponse;
 import net.sourceforge.peers.sip.transport.TransportManager;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
 
 
 public abstract class Transaction {
@@ -75,5 +75,9 @@ public abstract class Transaction {
     public SipRequest getRequest() {
         return request;
     }
-    
+
+    public void stopTimer() {
+        timer.cancel();
+        timer.purge();
+    }
 }

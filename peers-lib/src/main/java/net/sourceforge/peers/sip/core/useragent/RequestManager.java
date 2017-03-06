@@ -135,4 +135,8 @@ public abstract class RequestManager {
         return registerHandler;
     }
 
+    public void stopTimer() {
+        inviteHandler.stopTimer();
+    }
+
 }

@@ -19,12 +19,6 @@
 
 package net.sourceforge.peers.sip.transaction;
 
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Timer;
-
 import net.sourceforge.peers.Logger;
 import net.sourceforge.peers.sip.RFC3261;
 import net.sourceforge.peers.sip.Utils;
@@ -36,10 +30,16 @@ import net.sourceforge.peers.sip.transport.SipRequest;
 import net.sourceforge.peers.sip.transport.SipResponse;
 import net.sourceforge.peers.sip.transport.TransportManager;
 
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Timer;
+
 
 public class TransactionManager {
 
-    protected Timer timer;
+    protected Timer timer = null;
 
     // TODO remove client transactions when they reach terminated state
     // TODO check that server transactions are removed in all transitions to terminated
@@ -206,6 +206,14 @@ public class TransactionManager {
 
     public void setTransportManager(TransportManager transportManager) {
         this.transportManager = transportManager;
+    }
+
+    public void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+        }
     }
 
 }

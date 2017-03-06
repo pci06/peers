@@ -12,13 +12,24 @@
   </properties>
 
   <modules>
+    <module>peers-lib</module>
     <module>peers-demo</module>
     <module>peers-doc</module>
     <module>peers-gui</module>
     <module>peers-javaxsound</module>
     <module>peers-js</module>
     <module>peers-jws</module>
-    <module>peers-lib</module>
   </modules>
+
+	<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>peers-lib</artifactId>
+      <version>0.5.2-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
+	</dependencyManagement>
 
 </project>

@@ -7,6 +7,13 @@
   <version>0.5.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+	<parent>
+  <groupId>net.sourceforge.peers</groupId>
+  <artifactId>peers</artifactId>
+  <version>0.5.1-SNAPSHOT</version>
+	</parent>
+
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <keystore>target/compstore</keystore>
@@ -16,17 +23,28 @@
     <suffix>with-dependencies</suffix>
   </properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>peers</artifactId>
+      <version>${project.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>peers-lib</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>sun.plugin</groupId>
       <artifactId>plugin</artifactId>
-      <version>1.6</version>
+      <version>1.8</version>
       <scope>system</scope>
       <systemPath>${java.home}/lib/plugin.jar</systemPath>
     </dependency>
